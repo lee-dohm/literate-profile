@@ -8,12 +8,26 @@ gem 'minitest'
 
 require 'minitest/spec'
 require 'minitest/autorun'
+require 'pathname'
+require 'tempfile'
 
 require 'literate-profile'
 
 include Literate::Profile
 
 describe ProfileGenerator do
+  before do
+    file = Tempfile.new('foo')
+    file.close
+    @tempfile = Pathname.new file.path
+  end
+
+  after do
+    if File.exist? @tempfile.to_s
+      File.delete @tempfile.to_s
+    end
+  end
+
   it 'will have no path or shebang when instantiated' do
     generator = ProfileGenerator.new
 
@@ -44,5 +58,16 @@ describe ProfileGenerator do
     proc {
       generator.dump
     }.must_output "#!/bin/zsh\n"
+  end
+
+  it 'will output to the path if one is set' do
+    generator = ProfileGenerator.new
+    generator.shebang '/bin/zsh'
+
+    generator.path @tempfile.to_s
+    generator.dump
+
+    File.exist?(@tempfile.to_s).must_equal true
+    File.open(@tempfile.to_s) { |file| file.readlines.join("\n").must_equal "#!/bin/zsh\n" }
   end
 end

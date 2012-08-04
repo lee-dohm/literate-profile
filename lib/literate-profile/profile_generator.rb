@@ -16,7 +16,17 @@ module Literate
 
       # Dumps the profile.
       def dump
-        puts "#!#{@shebang}"
+        if @path.nil?
+          file = $stdout
+        else
+          file = File.open(@path, "w")
+        end
+
+        begin
+          file.puts "#!#{@shebang}"
+        ensure
+          file.close unless file == $stdout
+        end
       end
 
       # Gets or sets the path to which to write the profile.
