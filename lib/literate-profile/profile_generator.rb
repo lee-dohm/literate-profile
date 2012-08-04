@@ -12,6 +12,7 @@ module Literate
       def initialize
         @path = nil
         @shebang = nil
+        @text = nil
       end
 
       # Dumps the profile.
@@ -23,10 +24,20 @@ module Literate
         end
 
         begin
-          file.puts "#!#{@shebang}"
+          file.puts "#!#{@shebang}" unless @shebang.nil?
+          file.puts @text unless @text.nil?
         ensure
           file.close unless file == $stdout
         end
+      end
+
+      # Writes literal text to the profile.
+      # 
+      # @param text Any text at all that should be in the profile.
+      def literal(text)
+        @text = "" if @text.nil?
+        @text << text
+        @text << "\n\n"
       end
 
       # Gets or sets the path to which to write the profile.

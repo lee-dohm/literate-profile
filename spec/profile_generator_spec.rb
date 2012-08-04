@@ -60,6 +60,14 @@ describe ProfileGenerator do
     }.must_output "#!/bin/zsh\n"
   end
 
+  it 'will not attempt to write a shebang if one is not set' do
+    generator = ProfileGenerator.new
+
+    proc {
+      generator.dump
+    }.must_be_silent
+  end
+
   it 'will output to the path if one is set' do
     generator = ProfileGenerator.new
     generator.shebang '/bin/zsh'
@@ -69,5 +77,15 @@ describe ProfileGenerator do
 
     File.exist?(@tempfile.to_s).must_equal true
     File.open(@tempfile.to_s) { |file| file.readlines.join("\n").must_equal "#!/bin/zsh\n" }
+  end
+
+  it 'will allow output of literal blocks' do
+    generator = ProfileGenerator.new
+
+    generator.literal "foo"
+
+    proc {
+      generator.dump
+    }.must_output "foo\n\n"
   end
 end
