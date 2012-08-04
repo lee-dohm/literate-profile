@@ -1,4 +1,9 @@
-# -*- encoding: utf-8 -*-
+# encoding: UTF-8
+
+# 
+# Copyright:: Copyright 2012 by Lifted Studios. All Rights Reserved.
+# 
+
 require File.expand_path('../lib/literate-profile/version', __FILE__)
 
 Gem::Specification.new do |gem|
@@ -15,5 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Literate::Profile::VERSION
 
-  gem.add_development_dependency('minitest', '~> 3.3.0')
+  gem.add_development_dependency('minitest', '~> 3.3')  # Test library
+  gem.add_development_dependency('redcarpet')           # For Markdown formatting in documentation
+  gem.add_development_dependency('yard', '~> 0.8')      # Generate code documentation
 end
