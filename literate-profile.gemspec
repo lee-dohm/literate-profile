@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "literate-profile"
   gem.require_paths = ["lib"]
   gem.version       = Literate::Profile::VERSION
+
+  gem.add_development_dependency('minitest', '~> 3.3.0')
 end
