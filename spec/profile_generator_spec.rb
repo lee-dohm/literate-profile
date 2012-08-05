@@ -81,4 +81,25 @@ describe ProfileGenerator do
       generator.dump
     }.must_output "foo\n\n"
   end
+
+  it 'will follow literal blocks with two newlines' do
+    generator = ProfileGenerator.new
+
+    generator.literal "foo"
+    generator.literal "bar"
+
+    proc {
+      generator.dump
+    }.must_output "foo\n\nbar\n\n"
+  end
+
+  it 'will follow literal blocks with only two newlines' do
+    generator = ProfileGenerator.new
+
+    generator.literal "foo\n\n\n\n\n"
+
+    proc {
+      generator.dump
+    }.must_output "foo\n\n"
+  end
 end

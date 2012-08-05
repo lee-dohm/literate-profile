@@ -36,7 +36,7 @@ module Literate
       # @param text Any text at all that should be in the profile.
       def literal(text)
         @text = "" if @text.nil?
-        @text << text
+        @text << text.rstrip
         @text << "\n\n"
       end
 
