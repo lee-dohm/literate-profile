@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+# 
+# Copyright:: Copyright 2012 by Lifted Studios. All Rights Reserved.
+# 
+
+require 'literate-profile'
+
+
