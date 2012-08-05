@@ -15,7 +15,14 @@ CLOBBER.include('doc', 'pkg')
 task :default => [:test, :yard]
 
 desc "Execute all tests"
-task :test => [:spec]
+task :test => [:ex_check, :spec]
+
+task :ex_check do
+  files = Dir.entries('./bin')
+  if files.any? { |file| !File.executable?(File.join('./bin', file)) }
+    raise "Not all of the files in the bin directory are executable." 
+  end
+end
 
 Rake::TestTask.new('spec') do |spec|
   spec.libs << 'spec'
