@@ -102,4 +102,30 @@ describe ProfileGenerator do
       generator.dump
     }.must_output "foo\n\n"
   end
+
+  it 'can handle a section declaration' do
+    generator = ProfileGenerator.new
+
+    generator.section "title" do
+      literal "foo"
+    end
+
+    proc {
+      generator.dump
+    }.must_output "# title\nfoo\n\n"
+  end
+
+  it 'will indent the titles of nested sections' do
+    generator = ProfileGenerator.new
+
+    generator.section "title" do
+      generator.section "subtitle" do
+        literal "foo"
+      end
+    end
+
+    proc {
+      generator.dump
+    }.must_output "# title\n# * subtitle\nfoo\n\n"
+  end
 end
