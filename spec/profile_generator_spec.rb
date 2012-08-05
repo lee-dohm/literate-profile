@@ -4,16 +4,9 @@
 # Copyright:: Copyright 2012 by Lifted Studios. All Rights Reserved.
 # 
 
-gem 'minitest'
-
-require 'minitest/spec'
-require 'minitest/autorun'
+require 'test_helpers'
 require 'pathname'
 require 'tempfile'
-
-require 'literate-profile'
-
-include Literate::Profile
 
 describe ProfileGenerator do
   before do

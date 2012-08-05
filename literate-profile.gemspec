@@ -20,7 +20,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Literate::Profile::VERSION
 
-  gem.add_development_dependency('minitest', '~> 3.3')  # Test library
+  gem.add_development_dependency('minitest')            # Test library
+  gem.add_development_dependency('minitest-reporters')  # Reporting engine for Minitest
   gem.add_development_dependency('redcarpet')           # For Markdown formatting in documentation
-  gem.add_development_dependency('yard', '~> 0.8')      # Generate code documentation
+  gem.add_development_dependency('yard')                # Generate code documentation
 end
